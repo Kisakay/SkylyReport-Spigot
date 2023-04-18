@@ -2,25 +2,35 @@
 
 # CONFIG
 
-webhook: https://your-webhook-url.domain
-globalprefix: [SkyLy]
-dateformat: dd.MM.yyyy HH:mm
+webhook: "https://your-webhook-url.domain"
+globalprefix: "[SkyLy]"
+dateformat: "dd.MM.yyyy HH:mm"
 
 # LANGUAGE
-
+#
 # Quand la commande est executé par un Joueur
-lang-console-cant-execute-command: This command can only be executed by a player
+lang-console-cant-execute-command: "This command can only be executed by a player"
 
 # Quand la commande est executé sans rentrer le joueur
-lang-dont-type-player-command: Entre le noms du joueur que tu veux signaler
+lang-dont-type-player-command: "Entre le noms du joueur que tu veux signaler"
 
 #Quand la commande est executé sans rentrer la raison
-lang-dont-type-reason-command: Entre la raison
+lang-dont-type-reason-command: "Entre la raison"
 
 #Quand la commande est executé et que le joueur n'existe pas
-lang-dont-found-player-command: Le joueur spécifié est introuvable
+lang-dont-found-player-command: "Le joueur spécifié est introuvable"
 
 #Quand la commande est exécuté avec succès !
-lang-succes-work-command: Tu viens de signaler le joueur.
+lang-succes-work-command: "Tu viens de signaler le joueur."
 
 # MESSAGE
+#
+msg-content-webhook: ":mega: || @  here ||"
+msg-title-embed-webhook: "Report de "+player.getName()
+msg-description-embed-webhook: "Le report de **"+URLEncoder.encode(player.getName(), "UTF-8")+"** qui signale le joueur **"+arg+"** a `"+formattedDate+"`"+ "\\nPour la raison :\\n**"+arg2+"**"
+msg-logo-embed-webhook: "https://media.discordapp.net/attachments/1073309804493287585/1097644114943684728/Logo_S.png"
+msg-logo-avatar-webhook: "https://media.discordapp.net/attachments/1073309804493287585/1097644114943684728/Logo_S.png"
+msg-username-webhook: "SkyLy"
+msg-footer-text-embed-webhook: "Latest skyly.fr report detected - The server is currently on"
+msg-footer-icon-embed-webhook: "https://media.discordapp.net/attachments/1073309804493287585/1097644114943684728/Logo_S.png"
+msg-thumbnail-player-head-api-webhook: "https://mc-heads.net/avatar/"+player.getName()

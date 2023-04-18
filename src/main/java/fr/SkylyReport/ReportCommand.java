@@ -59,21 +59,20 @@ public class ReportCommand implements CommandExecutor {
 
             try {
             DiscordWebhook webhook = new DiscordWebhook(config.getString("webhook"));
-            webhook.setContent(":mega: || @  here ||");
-            webhook.setAvatarUrl("https://media.discordapp.net/attachments/1073309804493287585/1097644114943684728/Logo_S.png");
-            webhook.setUsername("SkyLy");
+            webhook.setContent(config.getString("msg-content-webhook"));
+            webhook.setAvatarUrl(config.getString("msg-logo-avatar-webhook"));
+            webhook.setUsername(config.getString("msg-username-webhook"));
             webhook.setTts(false);
             webhook.addEmbed(new DiscordWebhook.EmbedObject()
-                    .setTitle("Report de "+player.getName())
-                    .setDescription("Le report de **"+URLEncoder.encode(player.getName(), "UTF-8")+"** qui signale le joueur **"+arg+"** a `"+formattedDate+"`"+ "\\nPour la raison :\\n**"+arg2+"**")
+                    .setTitle(config.getString("msg-title-embed-webhook"))
+                    .setDescription(config.getString("msg-description-embed-webhook"))
                     .setColor(Color.RED)
-                    .setThumbnail("https://mc-heads.net/avatar/"+player.getName())
-                    .setFooter("Latest skyly.fr report detected - The server is currently on", "https://media.discordapp.net/attachments/1073309804493287585/1097644114943684728/Logo_S.png"));
+                    .setThumbnail(config.getString("msg-thumbnail-player-head-api-webhook"))
+                    .setFooter(config.getString("msg-footer-text-embed-webhook"), config.getString("msg-footer-icon-embed-webhook")));
                 webhook.execute();
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
-
             player.sendMessage(globalPrefix + ChatColor.WHITE + " "+config.getString("lang-succes-work-command"));
         }
         return true;
