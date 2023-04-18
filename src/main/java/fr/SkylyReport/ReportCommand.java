@@ -59,16 +59,18 @@ public class ReportCommand implements CommandExecutor {
 
             try {
             DiscordWebhook webhook = new DiscordWebhook(config.getString("webhook"));
-            webhook.setContent(config.getString("msg-content-webhook"));
-            webhook.setAvatarUrl(config.getString("msg-logo-avatar-webhook"));
-            webhook.setUsername(config.getString("msg-username-webhook"));
+            webhook.setContent(config.getString("msg-content-webhook").replace("%player%", URLEncoder.encode(player.getName(), "UTF-8").replace("%targetUser%", arg)).replace("%date%", formattedDate).replace("%reason%", arg2));
+            webhook.setAvatarUrl(config.getString("msg-logo-avatar-webhook").replace("%player%", URLEncoder.encode(player.getName(), "UTF-8").replace("%targetUser%", arg)).replace("%date%", formattedDate).replace("%reason%", arg2));
+            webhook.setUsername(config.getString("msg-username-webhook").replace("%player%", URLEncoder.encode(player.getName(), "UTF-8").replace("%targetUser%", arg)).replace("%date%", formattedDate).replace("%reason%", arg2));
             webhook.setTts(false);
             webhook.addEmbed(new DiscordWebhook.EmbedObject()
-                    .setTitle(config.getString("msg-title-embed-webhook"))
-                    .setDescription(config.getString("msg-description-embed-webhook"))
+                    .setTitle(config.getString("msg-title-embed-webhook").replace("%player%", URLEncoder.encode(player.getName(), "UTF-8").replace("%targetUser%", arg)).replace("%date%", formattedDate).replace("%reason%", arg2))
+                    .setDescription(config.getString("msg-description-embed-webhook").replace("%player%", URLEncoder.encode(player.getName(), "UTF-8").replace("%targetUser%", arg)).replace("%date%", formattedDate).replace("%reason%", arg2))
                     .setColor(Color.RED)
-                    .setThumbnail(config.getString("msg-thumbnail-player-head-api-webhook"))
-                    .setFooter(config.getString("msg-footer-text-embed-webhook"), config.getString("msg-footer-icon-embed-webhook")));
+                    .setThumbnail(config.getString("msg-thumbnail-player-head-api-webhook").replace("%player%", URLEncoder.encode(player.getName(), "UTF-8").replace("%targetUser%", arg)).replace("%date%", formattedDate).replace("%reason%", arg2))
+                    .setFooter(config.getString("msg-footer-text-embed-webhook").replace("%player%", URLEncoder.encode(player.getName(), "UTF-8").replace("%targetUser%", arg)).replace("%date%", formattedDate).replace("%reason%", arg2)
+                            , config.getString("msg-footer-icon-embed-webhook").replace("%player%", URLEncoder.encode(player.getName(), "UTF-8").replace("%targetUser%", arg)).replace("%date%", formattedDate).replace("%reason%", arg2)
+                    ));
                 webhook.execute();
             } catch (IOException e) {
                 throw new RuntimeException(e);
@@ -78,3 +80,4 @@ public class ReportCommand implements CommandExecutor {
         return true;
     }
 }
+//.replace("%player%", player.getName().replace("%targetUser%", arg)).replace("%date%", formattedDate).replace("%reason%", arg2)

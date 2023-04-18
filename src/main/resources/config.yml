@@ -24,13 +24,18 @@ lang-dont-found-player-command: "Le joueur spécifié est introuvable"
 lang-succes-work-command: "Tu viens de signaler le joueur."
 
 # MESSAGE
-#
+
+# %player% -> the execute of the command
+# %reason% -> the reason of the report
+# %targetUser% -> the pottential cheater
+# %date% -> the date formatted with "dateformat"
+# 🛑 Use "\\n" not "\n" !
 msg-content-webhook: ":mega: || @  here ||"
-msg-title-embed-webhook: "Report de "+player.getName()
-msg-description-embed-webhook: "Le report de **"+URLEncoder.encode(player.getName(), "UTF-8")+"** qui signale le joueur **"+arg+"** a `"+formattedDate+"`"+ "\\nPour la raison :\\n**"+arg2+"**"
+msg-title-embed-webhook: "Report de %player%"
+msg-description-embed-webhook: "Le report de **%player%** qui signale le joueur **%targetUser%** a `%date%`\\nPour la raison :\\n**%reason%**"
 msg-logo-embed-webhook: "https://media.discordapp.net/attachments/1073309804493287585/1097644114943684728/Logo_S.png"
 msg-logo-avatar-webhook: "https://media.discordapp.net/attachments/1073309804493287585/1097644114943684728/Logo_S.png"
 msg-username-webhook: "SkyLy"
 msg-footer-text-embed-webhook: "Latest skyly.fr report detected - The server is currently on"
 msg-footer-icon-embed-webhook: "https://media.discordapp.net/attachments/1073309804493287585/1097644114943684728/Logo_S.png"
-msg-thumbnail-player-head-api-webhook: "https://mc-heads.net/avatar/"+player.getName()
+msg-thumbnail-player-head-api-webhook: "https://mc-heads.net/avatar/%player%"
