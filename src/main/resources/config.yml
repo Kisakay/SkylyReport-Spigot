@@ -1,0 +1,26 @@
+# Created by Kisakay aka PeacefulTrees x Ezermoz
+
+# CONFIG
+
+webhook: https://your-webhook-url.domain
+globalprefix: [SkyLy]
+dateformat: dd.MM.yyyy HH:mm
+
+# LANGUAGE
+
+# Quand la commande est executé par un Joueur
+lang-console-cant-execute-command: This command can only be executed by a player
+
+# Quand la commande est executé sans rentrer le joueur
+lang-dont-type-player-command: Entre le noms du joueur que tu veux signaler
+
+#Quand la commande est executé sans rentrer la raison
+lang-dont-type-reason-command: Entre la raison
+
+#Quand la commande est executé et que le joueur n'existe pas
+lang-dont-found-player-command: Le joueur spécifié est introuvable
+
+#Quand la commande est exécuté avec succès !
+lang-succes-work-command: Tu viens de signaler le joueur.
+
+# MESSAGE
