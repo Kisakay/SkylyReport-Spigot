@@ -28,3 +28,6 @@ server/world*
 server/*.yml
 server/*json
 server/plugins/*
+server/server.properties
+*.properties
+*.properties
