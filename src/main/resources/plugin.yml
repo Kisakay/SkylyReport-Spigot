@@ -1,0 +1,9 @@
+name: SkylyReport
+version: '${project.version}'
+main: fr.SkylyReport.SkylyReport
+
+commands:
+  report:
+    description: Report a fdp !
+    usage: /<command>
+    permission: SkylyReport.report
