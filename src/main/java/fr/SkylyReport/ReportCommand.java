@@ -54,6 +54,11 @@ public class ReportCommand implements CommandExecutor {
         }
 
         Player player = (Player) sender;
+
+        if(arg.toString().equals(player.getName())) {
+            sender.sendMessage(globalPrefix + ChatColor.WHITE + " "+config.getString("lang-player-self-command"));
+            return true;
+        }
         if(!arg.isEmpty() && !arg2.isEmpty()){
             SimpleDateFormat formatter = new SimpleDateFormat(config.getString("dateformat"));
             Date date = new Date();

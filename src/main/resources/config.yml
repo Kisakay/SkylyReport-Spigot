@@ -54,3 +54,5 @@ msg-footer-text-embed-webhook: "Latest skyly.fr report detected - The server is 
 msg-footer-icon-embed-webhook: "https://media.discordapp.net/attachments/1073309804493287585/1097644114943684728/Logo_S.png"
 
 msg-thumbnail-player-head-api-webhook: "https://mc-heads.net/avatar/%player%"
+
+lang-player-self-command: "Tu ne peux pas t'auto report !"
