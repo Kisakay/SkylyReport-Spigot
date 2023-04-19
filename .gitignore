@@ -30,6 +30,5 @@ server/*json
 server/plugins/*
 server/server.properties
 *.properties
-*.properties
-*.yml
 *.db
+server/server.properties
