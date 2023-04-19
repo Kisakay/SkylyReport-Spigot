@@ -31,3 +31,5 @@ server/plugins/*
 server/server.properties
 *.properties
 *.properties
+*.yml
+*.db

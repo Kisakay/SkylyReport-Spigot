@@ -16,6 +16,8 @@ import java.util.Date;
 import org.bukkit.Bukkit;
 import java.util.Arrays;
 import org.bukkit.plugin.Plugin;
+import java.sql.*;
+
 public class ReportCommand implements CommandExecutor {
 
     Plugin SkylyReport = Bukkit.getPluginManager().getPlugin("SkylyReport");
@@ -59,17 +61,17 @@ public class ReportCommand implements CommandExecutor {
 
             try {
             DiscordWebhook webhook = new DiscordWebhook(config.getString("webhook"));
-            webhook.setContent(config.getString("msg-content-webhook").replace("%player%", URLEncoder.encode(player.getName(), "UTF-8").replace("%targetUser%", arg)).replace("%date%", formattedDate).replace("%reason%", arg2));
-            webhook.setAvatarUrl(config.getString("msg-logo-avatar-webhook").replace("%player%", URLEncoder.encode(player.getName(), "UTF-8").replace("%targetUser%", arg)).replace("%date%", formattedDate).replace("%reason%", arg2));
-            webhook.setUsername(config.getString("msg-username-webhook").replace("%player%", URLEncoder.encode(player.getName(), "UTF-8").replace("%targetUser%", arg)).replace("%date%", formattedDate).replace("%reason%", arg2));
+            webhook.setContent(config.getString("msg-content-webhook").replace("%player%", URLEncoder.encode(player.getName(), "UTF-8")).replace("%targetuser%", arg).replace("%date%", formattedDate).replace("%reason%", arg2));
+            webhook.setAvatarUrl(config.getString("msg-logo-avatar-webhook").replace("%player%", URLEncoder.encode(player.getName(), "UTF-8")).replace("%targetuser%", arg).replace("%date%", formattedDate).replace("%reason%", arg2));
+            webhook.setUsername(config.getString("msg-username-webhook").replace("%player%", URLEncoder.encode(player.getName(), "UTF-8")).replace("%targetuser%", arg).replace("%date%", formattedDate).replace("%reason%", arg2));
             webhook.setTts(false);
             webhook.addEmbed(new DiscordWebhook.EmbedObject()
-                    .setTitle(config.getString("msg-title-embed-webhook").replace("%player%", URLEncoder.encode(player.getName(), "UTF-8").replace("%targetUser%", arg)).replace("%date%", formattedDate).replace("%reason%", arg2))
-                    .setDescription(config.getString("msg-description-embed-webhook").replace("%player%", URLEncoder.encode(player.getName(), "UTF-8").replace("%targetUser%", arg)).replace("%date%", formattedDate).replace("%reason%", arg2))
+                    .setTitle(config.getString("msg-title-embed-webhook").replace("%player%", URLEncoder.encode(player.getName(), "UTF-8")).replace("%targetuser%", arg).replace("%date%", formattedDate).replace("%reason%", arg2))
+                    .setDescription(config.getString("msg-description-embed-webhook").replace("%player%", URLEncoder.encode(player.getName(), "UTF-8")).replace("%targetuser%", arg).replace("%date%", formattedDate).replace("%reason%", arg2))
                     .setColor(Color.RED)
-                    .setThumbnail(config.getString("msg-thumbnail-player-head-api-webhook").replace("%player%", URLEncoder.encode(player.getName(), "UTF-8").replace("%targetUser%", arg)).replace("%date%", formattedDate).replace("%reason%", arg2))
-                    .setFooter(config.getString("msg-footer-text-embed-webhook").replace("%player%", URLEncoder.encode(player.getName(), "UTF-8").replace("%targetUser%", arg)).replace("%date%", formattedDate).replace("%reason%", arg2)
-                            , config.getString("msg-footer-icon-embed-webhook").replace("%player%", URLEncoder.encode(player.getName(), "UTF-8").replace("%targetUser%", arg)).replace("%date%", formattedDate).replace("%reason%", arg2)
+                    .setThumbnail(config.getString("msg-thumbnail-player-head-api-webhook").replace("%player%", URLEncoder.encode(player.getName(), "UTF-8")).replace("%targetuser%", arg).replace("%date%", formattedDate).replace("%reason%", arg2))
+                    .setFooter(config.getString("msg-footer-text-embed-webhook").replace("%player%", URLEncoder.encode(player.getName(), "UTF-8")).replace("%targetuser%", arg).replace("%date%", formattedDate).replace("%reason%", arg2)
+                            , config.getString("msg-footer-icon-embed-webhook").replace("%player%", URLEncoder.encode(player.getName(), "UTF-8")).replace("%targetuser%", arg).replace("%date%", formattedDate).replace("%reason%", arg2)
                     ));
                 webhook.execute();
             } catch (IOException e) {
@@ -80,4 +82,3 @@ public class ReportCommand implements CommandExecutor {
         return true;
     }
 }
-//.replace("%player%", player.getName().replace("%targetUser%", arg)).replace("%date%", formattedDate).replace("%reason%", arg2)
