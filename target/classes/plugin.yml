@@ -4,10 +4,9 @@ main: fr.SkylyReport.SkylyReport
 
 commands:
   customreport:
-    description: Report a fdp !
+    description: Report a user !
     usage: /<command>
-    permission: SkylyReport.customreport
   tempban:
-    description: tempban a fdp !
+    description: tempban a user !
     usage: /<command>
     permission: SkylyReport.tempban

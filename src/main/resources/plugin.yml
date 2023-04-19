@@ -6,7 +6,6 @@ commands:
   customreport:
     description: Report a user !
     usage: /<command>
-    permission: SkylyReport.customreport
   tempban:
     description: tempban a user !
     usage: /<command>

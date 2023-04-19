@@ -29,6 +29,8 @@ lang-succes-work-command: "Tu viens de signaler le joueur."
 #Quand la commande "/tempban" est executé avec succès !
 lang-succes-work-2-command: "Tu viens de bannir le joueur."
 
+lang-player-self-command: "Tu ne peux pas t'auto report !"
+
 # MESSAGE
 
 # %player% -> the execute of the command
@@ -54,5 +56,3 @@ msg-footer-text-embed-webhook: "Latest skyly.fr report detected - The server is 
 msg-footer-icon-embed-webhook: "https://media.discordapp.net/attachments/1073309804493287585/1097644114943684728/Logo_S.png"
 
 msg-thumbnail-player-head-api-webhook: "https://mc-heads.net/avatar/%player%"
-
-lang-player-self-command: "Tu ne peux pas t'auto report !"
