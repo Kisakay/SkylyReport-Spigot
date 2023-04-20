@@ -32,16 +32,20 @@ public final class SkylyReport extends JavaPlugin implements Listener {
         getServer().getPluginManager().registerEvents(this, this);
 
         File configFile = new File(getDataFolder(), "config.yml");
+        File dbFile = new File(getDataFolder(), "db.txt");
 
         if(!configFile.exists()){
             getDataFolder().mkdirs();
             try {
                 InputStream inputStream = getClass().getResourceAsStream("/config.yml");
-                Files.copy(inputStream, configFile.toPath(), StandardCopyOption.REPLACE_EXISTING);
+                InputStream inputStream1 = getClass().getResourceAsStream("/db.txt");
 
-                getLogger().info("Le fichier config.yml a été extrait avec succès !");
+                Files.copy(inputStream, configFile.toPath(), StandardCopyOption.REPLACE_EXISTING);
+                Files.copy(inputStream1, dbFile.toPath(), StandardCopyOption.REPLACE_EXISTING);
+
+                getLogger().info("Les fichiers ont été extrait avec succès !");
             } catch (IOException e) {
-                getLogger().warning("Impossible d'extraire le fichier config.yml !");
+                getLogger().warning("Impossible d'extraire les fichier !");
                 e.printStackTrace();
             }
         } else {

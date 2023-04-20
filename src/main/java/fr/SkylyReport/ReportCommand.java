@@ -12,22 +12,23 @@ import java.io.File;
 import java.io.IOException;
 import java.net.URLEncoder;
 import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.util.*;
+
 import org.bukkit.Bukkit;
-import java.util.Arrays;
 import org.bukkit.plugin.Plugin;
-import java.sql.*;
+import java.util.Date;
 
 public class ReportCommand implements CommandExecutor {
+    private final Map<UUID, Long> cooldowns = new HashMap<>();
 
     Plugin SkylyReport = Bukkit.getPluginManager().getPlugin("SkylyReport");
     File configFile = new File(SkylyReport.getDataFolder(), "config.yml");
     FileConfiguration config = YamlConfiguration.loadConfiguration(configFile);
     public String globalPrefix = ChatColor.GOLD + config.getString("globalprefix");
 
-
     @Override
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
+
         if (!(sender instanceof Player)) {
             sender.sendMessage(globalPrefix + ChatColor.WHITE + " " +config.getString("lang-console-cant-execute-command"));
             return true;
@@ -55,10 +56,24 @@ public class ReportCommand implements CommandExecutor {
 
         Player player = (Player) sender;
 
-        if(arg.toString().equals(player.getName())) {
+        UUID playerId = player.getUniqueId();
+
+        if (cooldowns.containsKey(playerId)) {
+            long cooldownTime = cooldowns.get(playerId);
+            long timeLeft = cooldownTime - System.currentTimeMillis();
+            if (timeLeft > 0) {
+                String timeLeftFormatted = String.valueOf(timeLeft / 1000);
+                String message = config.getString("lang-player-cooldown-command").replace("%time%", timeLeftFormatted);
+                player.sendMessage(globalPrefix + ChatColor.WHITE + " " + message);
+                return true;
+            }
+        }
+
+        if(arg.equals(player.getName())) {
             sender.sendMessage(globalPrefix + ChatColor.WHITE + " "+config.getString("lang-player-self-command"));
             return true;
         }
+
         if(!arg.isEmpty() && !arg2.isEmpty()){
             SimpleDateFormat formatter = new SimpleDateFormat(config.getString("dateformat"));
             Date date = new Date();
@@ -82,6 +97,7 @@ public class ReportCommand implements CommandExecutor {
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
+            cooldowns.put(playerId, System.currentTimeMillis() + (config.getInt("cooldowntime") * 1000));
             player.sendMessage(globalPrefix + ChatColor.WHITE + " "+config.getString("lang-succes-work-command"));
         }
         return true;
