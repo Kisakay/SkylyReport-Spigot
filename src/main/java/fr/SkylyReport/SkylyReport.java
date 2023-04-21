@@ -60,35 +60,8 @@ public final class SkylyReport extends JavaPlugin implements Listener {
 
     @EventHandler
     public void onPlayerJoin(PlayerJoinEvent event) {
-        File configFile = new File(getDataFolder(), "config.yml");
-        FileConfiguration config = YamlConfiguration.loadConfiguration(configFile);
-
         Player player = event.getPlayer();
         InetSocketAddress address = player.getAddress();
         String ip = address.getAddress().getHostAddress();
-        try {
-            MyDatabase.init();
-            MyDatabase.add(player.getUniqueId().toString(), ip);
-
-            String ban = MyDatabase.get("blacklisted-"+player.getUniqueId().toString());
-            if(ban == null) { return; }
-
-            System.out.println(MyDatabase.unget(ip));
-
-
-            if(ban.equals(ip)) {
-                if(player.isBanned()) { return; } else{
-                    player.kickPlayer(ChatColor.RED + config.getString("lang-player-blacklisted-msg")
-                            .replace("%reason%", MyDatabase.get("blacklistedReason-"+player.getUniqueId())
-                            ));
-
-                    Bukkit.getBanList(BanList.Type.NAME).addBan(player.getName(), ChatColor.RED + config.getString("lang-player-blacklisted-msg")
-                            .replace("%reason%", MyDatabase.get("blacklistedReason-"+player.getUniqueId()
-                            )), null, null);
-                }
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
     }
 }

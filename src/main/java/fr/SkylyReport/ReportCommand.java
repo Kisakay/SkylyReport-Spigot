@@ -26,7 +26,7 @@ public class ReportCommand implements CommandExecutor {
     Plugin SkylyReport = Bukkit.getPluginManager().getPlugin("SkylyReport");
     File configFile = new File(SkylyReport.getDataFolder(), "config.yml");
     FileConfiguration config = YamlConfiguration.loadConfiguration(configFile);
-    public String globalPrefix = config.getString("globalprefix");
+    public String globalPrefix = ChatColor.GOLD + config.getString("globalprefix");
 
     @Override
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {

@@ -11,6 +11,7 @@ import org.bukkit.entity.Player;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.InetSocketAddress;
 import java.text.SimpleDateFormat;
 import java.time.Duration;
 import java.util.Calendar;
@@ -92,21 +93,16 @@ public class BanCommand implements CommandExecutor {
             long duration = parseDuration(durationString);
 
             Date expires = new Date(System.currentTimeMillis() + duration);
-                try {
-                    MyDatabase.init();
-                    String value = MyDatabase.get(reportedPlayer.getUniqueId().toString());
-                    MyDatabase.add("blacklisted-"+reportedPlayer.getUniqueId().toString(), MyDatabase.get(reportedPlayer.getUniqueId().toString()));
-                    MyDatabase.add("blacklistedReason-"+reportedPlayer.getUniqueId().toString(), arg3);
-                    MyDatabase.add("blacklistedExpires-"+reportedPlayer.getUniqueId().toString(), expires.toString());
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-                reportedPlayer.kickPlayer(ChatColor.RED + config.getString("lang-player-blacklisted-msg")
-                        .replace("%reason%", MyDatabase.get("blacklistedReason-"+reportedPlayer.getUniqueId().toString())));
 
-            Bukkit.getBanList(BanList.Type.NAME).addBan(reportedPlayer.getName(), ChatColor.RED + config.getString("lang-player-blacklisted-msg")
-                    .replace("%reason%", MyDatabase.get("blacklistedReason-"+reportedPlayer.getUniqueId()
-                    )), expires, null);
+            InetSocketAddress address = reportedPlayer.getAddress();
+            String ip = address.getAddress().getHostAddress();
+
+                reportedPlayer.kickPlayer(ChatColor.RED + config.getString("lang-player-blacklisted-msg")
+                        .replace("%reason%", arg3));
+
+            Bukkit.getBanList(BanList.Type.IP).addBan(ip,
+                    ChatColor.RED + config.getString("lang-player-blacklisted-msg").replace("%reason%", arg3),
+                    expires, null);
 
             player.sendMessage(globalPrefix + ChatColor.WHITE + " "+config.getString("lang-succes-work-2-command"));
         }
