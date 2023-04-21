@@ -3,10 +3,10 @@ version: '${project.version}'
 main: fr.SkylyReport.SkylyReport
 
 commands:
-  customreport:
+  creport:
     description: Report a user !
     usage: /<command>
-  tempban:
+  ctempban:
     description: tempban a user !
     usage: /<command>
     permission: SkylyReport.tempban

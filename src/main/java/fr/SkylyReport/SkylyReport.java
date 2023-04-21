@@ -49,8 +49,8 @@ public final class SkylyReport extends JavaPlugin implements Listener {
 
         getLogger().info("Dev by Kisakay aka PeacefulTrees x Ezermoz");
 
-        getCommand("customreport").setExecutor(new ReportCommand());
-        getCommand("tempban").setExecutor(new BanCommand());
+        getCommand("creport").setExecutor(new ReportCommand());
+        getCommand("ctempban").setExecutor(new BanCommand());
 
     }
     @Override
