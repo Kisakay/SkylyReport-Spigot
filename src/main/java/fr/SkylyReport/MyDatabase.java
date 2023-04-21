@@ -33,6 +33,9 @@ public class MyDatabase {
         return data.get(key);
     }
 
+    public static String unget(String value) {
+        return data.get(value);
+    }
     public static void update(String key, String value) throws IOException {
         if (data.containsKey(key)) {
             data.put(key, value);
