@@ -2,12 +2,14 @@ package fr.SkylyReport;
 
 import org.bukkit.BanList;
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
+import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.io.File;
@@ -18,7 +20,6 @@ import java.nio.file.Files;
 import java.nio.file.StandardCopyOption;
 
 public final class SkylyReport extends JavaPlugin implements Listener {
-
     @Override
     public void onEnable() {
 
@@ -59,23 +60,27 @@ public final class SkylyReport extends JavaPlugin implements Listener {
 
     @EventHandler
     public void onPlayerJoin(PlayerJoinEvent event) {
+        File configFile = new File(getDataFolder(), "config.yml");
+        FileConfiguration config = YamlConfiguration.loadConfiguration(configFile);
+
         Player player = event.getPlayer();
         InetSocketAddress address = player.getAddress();
         String ip = address.getAddress().getHostAddress();
-        getLogger().info("Le joueur " + player.getUniqueId() + " a l'adresse IP " + ip);
-
         try {
             MyDatabase.init();
             MyDatabase.add(player.getUniqueId().toString(), ip);
-            String value = MyDatabase.get(player.getUniqueId().toString());
-            System.out.println(value);
 
             String ban = MyDatabase.get("blacklisted-"+player.getUniqueId().toString());
             if(ban == null) { return; }
 
-            if(ban == ip){} {
-                Bukkit.getBanList(BanList.Type.NAME).addBan(player.getName(), "[SkyLyProtect] Vous êtes blacklist", null, null);
-                player.kickPlayer("[SkyLyProtect] Vous êtes blacklist");
+            if(ban.equals(ip)){} {
+                player.kickPlayer(ChatColor.RED + config.getString("lang-player-blacklisted-msg")
+                        .replace("%reason%", MyDatabase.get("blacklistedReason-"+player.getUniqueId())
+                ));
+
+                Bukkit.getBanList(BanList.Type.NAME).addBan(player.getName(), ChatColor.RED + config.getString("lang-player-blacklisted-msg")
+                        .replace("%reason%", MyDatabase.get("blacklistedReason-"+player.getUniqueId()
+                        )), null, null);
             }
         } catch (IOException e) {
             e.printStackTrace();

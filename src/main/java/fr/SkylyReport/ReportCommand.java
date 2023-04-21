@@ -26,7 +26,7 @@ public class ReportCommand implements CommandExecutor {
     Plugin SkylyReport = Bukkit.getPluginManager().getPlugin("SkylyReport");
     File configFile = new File(SkylyReport.getDataFolder(), "config.yml");
     FileConfiguration config = YamlConfiguration.loadConfiguration(configFile);
-    public String globalPrefix = ChatColor.GOLD + config.getString("globalprefix");
+    public String globalPrefix = config.getString("globalprefix");
 
     @Override
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
@@ -51,25 +51,15 @@ public class ReportCommand implements CommandExecutor {
 
         Player reportedPlayer = Bukkit.getServer().getPlayer(arg);
 
-        /*if (reportedPlayer == null) {
-            sender.sendMessage(globalPrefix + ChatColor.WHITE +" "+config.getString("lang-dont-found-player-command"));
+        if (reportedPlayer == null) {
+            sender.sendMessage(globalPrefix + ChatColor.WHITE +" "+config.getString("lang-dont-found-player-2-command"));
             return true;
-        }*/
+        }
 
         Player player = (Player) sender;
 
         UUID playerId = player.getUniqueId();
 
-        if (cooldowns.containsKey(playerId)) {
-            long cooldownTime = cooldowns.get(playerId);
-            long timeLeft = cooldownTime - System.currentTimeMillis();
-            if (timeLeft > 0) {
-                String timeLeftFormatted = String.valueOf(timeLeft / 1000);
-                String message = config.getString("lang-player-cooldown-command").replace("%time%", timeLeftFormatted);
-                player.sendMessage(globalPrefix + ChatColor.WHITE + " " + message);
-                return true;
-            }
-        }
 
         if(arg.equals(player.getName())) {
             sender.sendMessage(globalPrefix + ChatColor.WHITE + " "+config.getString("lang-player-self-command"));
@@ -103,7 +93,6 @@ public class ReportCommand implements CommandExecutor {
                     }
                     Bukkit.getScheduler().runTask(SkylyReport, new Runnable() {
                         public void run() {
-                            cooldowns.put(playerId, System.currentTimeMillis() + (config.getInt("cooldowntime") * 1000));
                             player.sendMessage(globalPrefix + ChatColor.WHITE + " " + config.getString("lang-succes-work-command"));
                         }
                     });

@@ -56,6 +56,12 @@ public class BanCommand implements CommandExecutor {
         }
 
         Player player = (Player) sender;
+
+        if(arg.equals(player.getName())) {
+            sender.sendMessage(globalPrefix + ChatColor.WHITE + " "+config.getString("lang-player-self-2-command"));
+            return true;
+        }
+
         if(!arg.isEmpty() && !arg2.isEmpty() && !arg3.isEmpty()){
             SimpleDateFormat formatter = new SimpleDateFormat(config.getString("dateformat"));
             Date date = new Date();
@@ -65,10 +71,12 @@ public class BanCommand implements CommandExecutor {
                     MyDatabase.init();
                     String value = MyDatabase.get(reportedPlayer.getUniqueId().toString());
                     MyDatabase.add("blacklisted-"+reportedPlayer.getUniqueId().toString(), MyDatabase.get(reportedPlayer.getUniqueId().toString()));
+                    MyDatabase.add("blacklistedReason-"+reportedPlayer.getUniqueId().toString(), arg3);
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
-
+                reportedPlayer.kickPlayer(ChatColor.RED + config.getString("lang-player-blacklisted-msg")
+                        .replace("%reason%", MyDatabase.get("blacklistedReason-"+reportedPlayer.getUniqueId().toString())));
 
             player.sendMessage(globalPrefix + ChatColor.WHITE + " "+config.getString("lang-succes-work-2-command"));
         }

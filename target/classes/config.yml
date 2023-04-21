@@ -45,11 +45,15 @@ lang-player-self-command: "Tu ne peux pas t'auto report !"
 # Quand le joueur executant la commande est en cooldown !
 lang-player-cooldown-command: "Vous devez attendre %time% secondes avant de faire la commande !"
 
-# /tempban
+# /tempban (equivalent to a blacklist)
 lang-dont-type-player-2-command: "Entre le noms du joueur que tu veux ban"
 lang-dont-type-time-2-command: "Entre le temps s'il te plait"
 lang-dont-type-reason-2-command: "Entre la raison du bannisement"
 lang-dont-found-player-2-command: "Le joueur est introuvable"
+lang-player-self-2-command: "Tu ne peux pas t'auto ban !"
+
+# %reason% -> The reason of the blacklist
+lang-player-blacklisted-msg: "You are been blacklisted for %reason%"
 
 # MESSAGE
 
