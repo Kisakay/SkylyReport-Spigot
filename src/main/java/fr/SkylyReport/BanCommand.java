@@ -7,18 +7,16 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
-import java.awt.Color;
+
 import java.io.File;
 import java.io.IOException;
-import java.net.URLEncoder;
-import java.sql.Connection;
-import java.sql.DriverManager;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import org.bukkit.Bukkit;
 import java.util.Arrays;
+import java.util.UUID;
+
 import org.bukkit.plugin.Plugin;
-import java.sql.*;
 
 public class BanCommand implements CommandExecutor {
     Plugin SkylyReport = Bukkit.getPluginManager().getPlugin("SkylyReport");
@@ -34,12 +32,15 @@ public class BanCommand implements CommandExecutor {
         }
         switch (args.length){
             case 0:
-                sender.sendMessage(globalPrefix + ChatColor.WHITE + " "+config.getString("lang-dont-type-player-command"));
+                sender.sendMessage(globalPrefix + ChatColor.WHITE + " "+config.getString("lang-dont-type-player-2-command"));
                 return true;
             case 1:
-                sender.sendMessage(globalPrefix + ChatColor.WHITE + " "+config.getString("lang-dont-type-reason-command"));
+                sender.sendMessage(globalPrefix + ChatColor.WHITE + " "+config.getString("lang-dont-type-time-2-command"));
                 return true;
             case 2:
+                sender.sendMessage(globalPrefix + ChatColor.WHITE + " "+config.getString("lang-dont-type-reason-2-command"));
+                return true;
+            case 3:
                 break;
         }
 
@@ -50,7 +51,7 @@ public class BanCommand implements CommandExecutor {
         Player reportedPlayer = Bukkit.getServer().getPlayer(arg);
 
         if (reportedPlayer == null) {
-            sender.sendMessage(globalPrefix + ChatColor.WHITE +" "+config.getString("lang-dont-found-player-command"));
+            sender.sendMessage(globalPrefix + ChatColor.WHITE +" "+config.getString("lang-dont-found-player-2-command"));
             return true;
         }
 
@@ -59,6 +60,14 @@ public class BanCommand implements CommandExecutor {
             SimpleDateFormat formatter = new SimpleDateFormat(config.getString("dateformat"));
             Date date = new Date();
             String formattedDate = formatter.format(date);
+
+                try {
+                    MyDatabase.init();
+                    String value = MyDatabase.get(reportedPlayer.getUniqueId().toString());
+                    MyDatabase.add("blacklisted-"+reportedPlayer.getUniqueId().toString(), MyDatabase.get(reportedPlayer.getUniqueId().toString()));
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
 
 
             player.sendMessage(globalPrefix + ChatColor.WHITE + " "+config.getString("lang-succes-work-2-command"));

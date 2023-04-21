@@ -28,7 +28,7 @@ lang-dont-type-player-command: "Entre le noms du joueur que tu veux signaler"
 lang-dont-type-reason-command: "Entre la raison"
 
 # Quand la commande est executé et que le joueur n'existe pas
-lang-dont-found-player-command: "Le joueur spécifié est introuvable"
+lang-dont-found-player-command: "Le joueur est introuvable"
 
 # Quand la commande est executé et que le temps n'est pas entrer
 lang-dont-type-time-command: "Entre le temps s'il te plait"
@@ -44,6 +44,12 @@ lang-player-self-command: "Tu ne peux pas t'auto report !"
 
 # Quand le joueur executant la commande est en cooldown !
 lang-player-cooldown-command: "Vous devez attendre %time% secondes avant de faire la commande !"
+
+# /tempban
+lang-dont-type-player-2-command: "Entre le noms du joueur que tu veux ban"
+lang-dont-type-time-2-command: "Entre le temps s'il te plait"
+lang-dont-type-reason-2-command: "Entre la raison du bannisement"
+lang-dont-found-player-2-command: "Le joueur est introuvable"
 
 # MESSAGE
 

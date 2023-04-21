@@ -1,5 +1,5 @@
 name: SkylyReport
-version: '1.0.1-SNAPSHOT'
+version: '1.2-RELEASE'
 main: fr.SkylyReport.SkylyReport
 
 commands:
